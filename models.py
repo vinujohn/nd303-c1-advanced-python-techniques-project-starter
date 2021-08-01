@@ -18,6 +18,7 @@ quirks of the data set, such as missing names and unknown diameters.
 You'll edit this file in Task 1.
 """
 from helpers import cd_to_datetime, datetime_to_str
+import math
 
 
 class NearEarthObject:
@@ -34,7 +35,8 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation, name = None, diameter = float('nan'), hazaradous = False):
+
+    def __init__(self, designation, name=None, diameter=float('nan'), hazaradous=False):
         """Create a new `NearEarthObject`.
 
         :param designation: The primary designation for this NearEarthObject.
@@ -50,7 +52,8 @@ class NearEarthObject:
         # and a missing diameter being represented by `float('nan')`.
         self.designation = str(designation)
         self.name = str(name) if name else None
-        self.diameter = diameter if isinstance(diameter, (int, float)) else float('nan')
+        self.diameter = diameter if isinstance(
+            diameter, (int, float)) else float('nan')
         self.hazardous = bool(hazaradous)
 
         # Create an empty initial collection of linked approaches.
@@ -64,10 +67,14 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
+
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"A NearEarthObject ..."
+        diameter_str = f"a diameter of {self.diameter:.3f} km" if not math.isnan(
+            self.diameter) else "an unknown diameter"
+        hazardous_str = "is" if self.hazardous else "is not"
+        return f"NEO {self.fullname} has {diameter_str} and {hazardous_str} potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -90,6 +97,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, **info):
         """Create a new `CloseApproach`.
 
@@ -100,7 +108,8 @@ class CloseApproach:
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
         self._designation = ''
-        self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
+        # TODO: Use the cd_to_datetime function for this attribute.
+        self.time = None
         self.distance = 0.0
         self.velocity = 0.0
 
